@@ -44,11 +44,14 @@ public class Quest : MonoBehaviour
 
         if (randomQuestType == QuestType.kill)
         {
-            GameObject[] enemys = GameObject.FindGameObjectsWithTag("enemy");
-            GameObject randomEnemy = enemys[UnityEngine.Random.Range(0, enemys.Length)];
+            ////якщо потр≥бно буде ≥з ≥снуючих Їлемент≥в обрати
+            //GameObject[] enemys = GameObject.FindGameObjectsWithTag("enemy");
+            //GameObject randomEnemy = enemys[UnityEngine.Random.Range(0, enemys.Length)];
+            //goal = randomEnemy;
+            //goalName = randomEnemy.name;
 
-            goal = randomEnemy;
-            goalName = randomEnemy.name;
+            goalName = "Emperor Mavr";
+
             questName = "Kill " + goalName;
             questText = "Kill " + goalName + ". Ok?";
 

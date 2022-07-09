@@ -12,7 +12,8 @@ public class QuestSystem : MonoBehaviour
 
     [SerializeField] private Text QuestText;
     [SerializeField] private Text QuestGiverName;
-    
+    [SerializeField] private GameObject QuestNPC;
+
     public bool DecisionIsMade;
     
     [SerializeField] Button RefusalButton;
@@ -69,17 +70,27 @@ public class QuestSystem : MonoBehaviour
 
     private void AddQuest(GameObject questGiver) 
     {
-        activeQuests.Add(quest);
 
         if (Quest.QuestType.kill == quest.questType)
         {
+
             questGiver.GetComponent<NPCInteraction>().ChangeQuestStatus(NPCInteraction.QuestStatuses.questActive);
+
+            if (quest.goal == null) 
+            {
+                GameObject NPCGoal = Instantiate(QuestNPC, new Vector3(1.0f, -0.5f, 0f), Quaternion.Euler(0f, 0f, 0f));
+                NPCGoal.name = "" + quest.goalName;
+                quest.goal = NPCGoal;
+            }
+            else {}
+
             var questGoal = GameObject.Find((string)quest.goalName).GetComponent<NPCInteraction>();
             questGoal.npcName = (string)quest.goalName;
             questGoal.ChangeStatusNPC(NPCInteraction.npcStatusEnum.unfriendly);
+
         }
 
-        //questGiver.GetComponent<NPCInteraction>.
+        activeQuests.Add(quest);
 
         CloseQuestWindow();
     }

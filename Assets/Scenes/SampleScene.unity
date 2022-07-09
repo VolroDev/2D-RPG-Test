@@ -361,6 +361,7 @@ MonoBehaviour:
   quest: {fileID: 838931983}
   QuestText: {fileID: 1092013903}
   QuestGiverName: {fileID: 250799833}
+  QuestNPC: {fileID: 1758283002061097983, guid: 3072ffff15860764db90b2bbe3d273d5, type: 3}
   DecisionIsMade: 0
   RefusalButton: {fileID: 1150124818}
 --- !u!114 &280540135
