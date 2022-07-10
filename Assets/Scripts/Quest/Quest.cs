@@ -32,11 +32,20 @@ public class Quest : MonoBehaviour
     public void CreateNewQuest(GameObject QuestGiver, int QuestNumber)
     {
         identifier = QuestGiver.name + QuestNumber;
+        questName = "";
         giver = QuestGiver;
-        active = true;
+        //Location = "";
+        //Prerequisite = "";
+        //Faction = "";
+        questText = "";
+        //active = true;
         completed = false;
+        questName = "";
+        goal = null;
+        goalName = null;
 
-        int unumLenght = Enum.GetValues(typeof(QuestType)).Length;
+
+    int unumLenght = Enum.GetValues(typeof(QuestType)).Length;
         QuestType randomQuestType = (QuestType)UnityEngine.Random.Range(0, unumLenght);
 
         unumLenght = Enum.GetValues(typeof(RewardType)).Length;

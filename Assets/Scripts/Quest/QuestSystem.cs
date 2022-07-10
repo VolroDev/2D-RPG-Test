@@ -39,7 +39,7 @@ public class QuestSystem : MonoBehaviour
         quest.CreateNewQuest(questGiver, questCount);
         QuestText.text = quest.questText;
         QuestGiverName.text = questGiver.name;
-        questGiver.GetComponent<NPCInteraction>().ChangeQuestStatus(NPCInteraction.QuestStatuses.questActive);
+        //questGiver.GetComponent<NPCInteraction>().ChangeQuestStatus(NPCInteraction.QuestStatuses.questActive);
     }
     public void ConfirmQuest()
     {
@@ -82,7 +82,10 @@ public class QuestSystem : MonoBehaviour
                 NPCGoal.name = "" + quest.goalName;
                 quest.goal = NPCGoal;
             }
-            else {}
+            else 
+            {
+                Debug.Log("NPC goal !!!");
+            }
 
             var questGoal = GameObject.Find((string)quest.goalName).GetComponent<NPCInteraction>();
             questGoal.npcName = (string)quest.goalName;
