@@ -32,7 +32,7 @@ public class PlayerCollision : MonoBehaviour
         else if (NPCInteraction.npcStatusEnum.unfriendly == npc.npcStatus)
         {
             npc.EventBeforeDestruction();
-            Destroy(GameObject.Find(npc.npcName));
+            Destroy(GameObject.Find(npc.name));
         }
     }
 }

@@ -3,17 +3,19 @@ using UnityEngine;
 
 public class Quest : MonoBehaviour
 {
-    public string identifier;
     public string questName;
     public GameObject giver;
-    //public string Location;
-    //public string Prerequisite;
-    //public string Faction;
+    public string location;
+    public string prerequisite;
+    public string faction;
     public string questText;
     public bool active;
     public bool completed;
     public object goal;
     public object goalName;
+    
+    public string questGuid;
+    public bool questComfirm;
 
     public enum QuestType
     {
@@ -29,21 +31,21 @@ public class Quest : MonoBehaviour
 
     public int reward;
 
-    public void CreateNewQuest(GameObject QuestGiver, int QuestNumber)
+    public void CreateNewQuest(GameObject QuestGiver)
     {
-        identifier = QuestGiver.name + QuestNumber;
+       
         questName = "";
         giver = QuestGiver;
-        //Location = "";
-        //Prerequisite = "";
-        //Faction = "";
+        location = "";
+        prerequisite = "";
+        faction = "";
         questText = "";
         //active = true;
         completed = false;
-        questName = "";
         goal = null;
         goalName = null;
-
+        questGuid = "" + Guid.NewGuid();
+        questComfirm = false;
 
     int unumLenght = Enum.GetValues(typeof(QuestType)).Length;
         QuestType randomQuestType = (QuestType)UnityEngine.Random.Range(0, unumLenght);
@@ -63,7 +65,14 @@ public class Quest : MonoBehaviour
 
             questName = "Kill " + goalName;
             questText = "Kill " + goalName + ". Ok?";
-
+   
+        } 
+        else if(randomQuestType == QuestType.kill) //якщо потр≥бно буде ≥з ≥снуючих Їлемент≥в обрати
+        {
+            //GameObject[] enemys = GameObject.FindGameObjectsWithTag("enemy");
+            //GameObject randomEnemy = enemys[UnityEngine.Random.Range(0, enemys.Length)];
+            //goal = randomEnemy;
+            //goalName = randomEnemy.name;
         }
         //else if (randomQuestType == QuestType.courier)
         //{

@@ -5,11 +5,12 @@ using UnityEngine.UI;
 public class NPCInteraction : MonoBehaviour
 {
     public string npcName;
+    public string guidNPC;
 
     [SerializeField] private QuestSystem questSystem;
+    [SerializeField] private Quest quest;
     [SerializeField] private bool questPossible;
     [SerializeField] private bool questCompleted;  
-    private int questCount;
 
     [SerializeField] private Image npcStatusImage;
     [SerializeField] Sprite questionMark;
@@ -31,7 +32,11 @@ public class NPCInteraction : MonoBehaviour
 
     private void Start()
     {
-        npcName = this.name;
+        if (npcName == "") 
+        {
+            InitializeNewNPC(name);
+        }
+
         npcStatusImage.enabled = false; //off image
         questSystem = GameObject.Find("EventSystem").GetComponent<QuestSystem>();
 
@@ -39,10 +44,34 @@ public class NPCInteraction : MonoBehaviour
         {
             questStatus = QuestStatuses.newQuestExists;
             questPossible = true;
+            
+            GameObject gameObject = new GameObject("Quest");
+            quest = gameObject.AddComponent<Quest>();
+            quest.name = npcName + " quest";
+            quest.CreateNewQuest(this.gameObject);
         }
         else 
         {
             questPossible = false;
+        }
+    }
+
+    public void InitializeNewNPC(string initializeName) 
+    {
+        npcName = initializeName;
+        guidNPC = CreateNPCGUID();
+        name = npcName + guidNPC;
+    }
+
+    private string CreateNPCGUID() 
+    {
+        if (guidNPC == "")
+        {
+            return "" + System.Guid.NewGuid();
+        }
+        else 
+        {
+            return guidNPC;
         }
     }
 
@@ -69,13 +98,13 @@ public class NPCInteraction : MonoBehaviour
                 if (questStatus == QuestStatuses.newQuestExists)
                 {
                     questSystem.OpenQuestWindow();
-                    questSystem.NewQuest(this.gameObject, questCount++);
+                    questSystem.NewQuest(quest);
                 }
 
                 if (questStatus == QuestStatuses.questCompleted)
                 {
                     questSystem.OpenQuestWindow();
-                    questSystem.CompleteQuest(this.gameObject);
+                    questSystem.CompleteQuest(quest);
                 }
             }
             else if (npcStatus == npcStatusEnum.neutral) { }
@@ -97,7 +126,13 @@ public class NPCInteraction : MonoBehaviour
 
     public void NPCImageStatus()
     {
-      
+
+        if (this.quest == null) 
+        {
+            questStatus = QuestStatuses.noQuests;
+            npcStatusImage.sprite = null;
+            npcStatusImage.enabled = false;
+        }
         if (questStatus == QuestStatuses.newQuestExists)
         {
             npcStatusImage.sprite = questionMark;
@@ -120,4 +155,9 @@ public class NPCInteraction : MonoBehaviour
         questSystem.CheckQuest(this.gameObject);
     }
     
+    public Quest GetQuest() 
+    {
+        return quest;
+    }
+
 }
